@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numbers Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+        }
+
+        .back-button {
+            background-color: #0f9d58;
+            color: white;
+            padding: 10px 15px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #0c7a43;
+        }
+
+        .app-description {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .app-description img {
+            width: 150px;
+            border-radius: 20px;
+        }
+
+        .app-details {
+            margin-left: 20px;
+        }
+
+        .app-details h2 {
+            font-size: 2em;
+            color: #333;
+        }
+
+        .app-details p {
+            font-size: 1.2em;
+            color: #777;
+        }
+
+        .app-details .rating {
+            font-size: 1.1em;
+            color: #ffa500;
+        }
+
+        .download-btn {
+            background-color: #0f9d58;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background-color: #0c7a43;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #777;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button class="back-button" onclick="goBack()">Retour</button>
+        <h1>Numbers Game</h1>
+        <div class="app-description">
+            <img src="https://via.placeholder.com/150" alt="Icône de numbers game">
+            <div class="app-details">
+                <h2>Devinez les nombres pour gagner</h2>
+                <p>Un jeu amusant qui teste vos compétences logiques et vous aide à améliorer vos compétences en mathématiques.</p>
+                <p class="rating">★ 4.3 • 1.5k avis</p>
+                <button class="download-btn">Installer</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2024 Google Play Store - Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Fonction pour revenir à la page précédente
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+</body>
+</html>

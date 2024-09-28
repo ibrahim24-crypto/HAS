@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page de Bienvenue avec Menu et Recherche</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .header {
+            background-color: #0f9d58;
+            padding: 20px;
+            text-align: left;
+            color: white;
+            position: relative;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .menu-btn {
+            font-size: 1.5em;
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+
+        .menu {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .menu a {
+            padding: 10px 30px;
+            text-decoration: none;
+            font-size: 1.5em;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            color: #f1f1f1;
+        }
+
+        .menu .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2em;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-container {
+            text-align: center;
+            margin-top: 50px;
+            display: flex; /* Utiliser Flexbox pour aligner les éléments */
+            justify-content: center; /* Centrer les éléments horizontalement */
+        }
+
+        .search-container input[type="text"] {
+            padding: 10px;
+            width: 60%;
+            font-size: 1.2em;
+            border: 2px solid #0f9d58;
+            border-radius: 5px;
+            margin-right: 10px; /* Ajouter un espace entre le champ de texte et le bouton */
+        }
+
+        .search-container button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #0f9d58;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .search-container button:hover {
+            background-color: #0c7a43;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Bienvenue !</h1>
+        <button class="menu-btn" onclick="openMenu()">☰</button>
+    </div>
+
+    <div id="side-menu" class="menu">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">×</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="mes-applis.html">Mes applis</a>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Recherchez une application...">
+        <button onclick="searchApp()">Rechercher</button>
+    </div>
+
+    <script>
+        // Liste des applications
+        const apps = {
+            "chiffrement": "chiffrement.html",
+            "numbers game": "numbers-game.html"
+        };
+
+        // Fonction pour vérifier si une chaîne est contenue avec des lettres manquantes
+        function isSimilar(input, appName) {
+            let missingChars = 0;
+            let j = 0;
+
+            for (let i = 0; i < appName.length; i++) {
+                if (j < input.length && appName[i].toLowerCase() === input[j]) {
+                    j++;
+                } else {
+                    missingChars++;
+                }
+                if (missingChars > 1) return false; // Plus d'une lettre manquante
+            }
+            return true;
+        }
+
+        // Fonction pour ouvrir le menu
+        function openMenu() {
+            document.getElementById("side-menu").style.width = "250px";
+        }
+
+        // Fonction pour fermer le menu
+        function closeMenu() {
+            document.getElementById("side-menu").style.width = "0";
+        }
+
+        // Fonction pour effectuer la recherche d'une application
+        function searchApp() {
+            const input = document.getElementById("search-input").value.toLowerCase();
+            let found = false;
+            const similarApps = [];
+
+            for (const app in apps) {
+                if (app.toLowerCase() === input || isSimilar(input, app)) {
+                    window.location.href = apps[app];
+                    found = true;
+                    break;
+                } else if (input.length > 0 && app.toLowerCase().includes(input)) {
+                    similarApps.push(app);
+                }
+            }
+
+            if (!found) {
+                if (similarApps.length > 0) {
+                    alert("Application non trouvée. Peut-être vouliez-vous : " + similarApps.join(", ") + " ?");
+                } else {
+                    alert("Application non trouvée.");
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
