@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Himo App Store</title>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container {
+            margin: 20px;
+        }
+        .login-form, .comment-section {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .login-form input, .comment-section textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login-form button, .comment-section button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .comment {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Himo App Store</h1>
+</header>
+
+<div class="container">
+    <!-- Login Form -->
+    <div class="login-form">
+        <h2>Connexion</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Mot de passe">
+        <button onclick="login()">Se connecter</button>
+        <p id="login-status"></p>
+    </div>
+
+    <!-- Comment Section -->
+    <div class="comment-section">
+        <h2>Commentaires</h2>
+        <textarea id="comment" placeholder="Écrire un commentaire"></textarea>
+        <button onclick="postComment()">Poster un commentaire</button>
+        <div id="comments"></div>
+    </div>
+</div>
+
+<script>
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDZzGSojMKyDwzdg3vshkWMLfuKGdsZY4M",
+        authDomain: "my-apps-45cb3.firebaseapp.com",
+        projectId: "my-apps-45cb3",
+        storageBucket: "my-apps-45cb3.appspot.com",
+        messagingSenderId: "331469548204",
+        appId: "1:331469548204:web:28c1a0cccee93eb0e74d09",
+        measurementId: "G-BHGCY8BQ58"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // Login function
+    function login() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        auth.signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                document.getElementById("login-status").textContent = "Connexion réussie";
+            })
+            .catch((error) => {
+                document.getElementById("login-status").textContent = error.message;
+            });
+    }
+
+    // Post comment function
+    function postComment() {
+        const comment = document.getElementById("comment").value;
+        const user = auth.currentUser;
+
+        if (user) {
+            db.collection("comments").add({
+                uid: user.uid,
+                comment: comment,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                document.getElementById("comment").value = "";
+                loadComments();
+            });
+        } else {
+            alert("Vous devez être connecté pour poster un commentaire");
+        }
+    }
+
+    // Load comments from Firestore
+    function loadComments() {
+        db.collection("comments").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+            const comments = document.getElementById("comments");
+            comments.innerHTML = "";
+            snapshot.forEach((doc) => {
+                const commentData = doc.data();
+                const commentElement = document.createElement("div");
+                commentElement.classList.add("comment");
+                commentElement.textContent = commentData.comment;
+                comments.appendChild(commentElement);
+            });
+        });
+    }
+
+    // Load comments when user is logged in
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            loadComments();
+        } else {
+            document.getElementById("comments").innerHTML = "";
+        }
+    });
+</script>
+
+</body>
+  </html>
