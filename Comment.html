@@ -25,21 +25,21 @@
         .container {
             margin: 20px;
         }
-        .login-form, .comment-section {
+        .form-container {
             background-color: white;
             padding: 20px;
             margin: 20px 0;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .login-form input, .comment-section textarea {
+        .form-container input, .form-container textarea {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        .login-form button, .comment-section button {
+        .form-container button {
             background-color: #4CAF50;
             color: white;
             padding: 10px;
@@ -53,6 +53,9 @@
             margin: 10px 0;
             border-left: 4px solid #4CAF50;
         }
+        .status {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -62,17 +65,26 @@
 </header>
 
 <div class="container">
+    <!-- Sign Up Form -->
+    <div class="form-container" id="signup-container">
+        <h2>Créer un compte</h2>
+        <input type="email" id="signup-email" placeholder="Email" required>
+        <input type="password" id="signup-password" placeholder="Mot de passe" required>
+        <button onclick="signUp()">S'inscrire</button>
+        <p id="signup-status" class="status"></p>
+    </div>
+
     <!-- Login Form -->
-    <div class="login-form">
+    <div class="form-container" id="login-container">
         <h2>Connexion</h2>
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Mot de passe">
+        <input type="email" id="login-email" placeholder="Email" required>
+        <input type="password" id="login-password" placeholder="Mot de passe" required>
         <button onclick="login()">Se connecter</button>
-        <p id="login-status"></p>
+        <p id="login-status" class="status"></p>
     </div>
 
     <!-- Comment Section -->
-    <div class="comment-section">
+    <div class="form-container comment-section">
         <h2>Commentaires</h2>
         <textarea id="comment" placeholder="Écrire un commentaire"></textarea>
         <button onclick="postComment()">Poster un commentaire</button>
@@ -97,14 +109,29 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
 
+    // Sign Up function
+    function signUp() {
+        const email = document.getElementById("signup-email").value;
+        const password = document.getElementById("signup-password").value;
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                document.getElementById("signup-status").textContent = "Compte créé avec succès";
+            })
+            .catch((error) => {
+                document.getElementById("signup-status").textContent = error.message;
+            });
+    }
+
     // Login function
     function login() {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
 
         auth.signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
                 document.getElementById("login-status").textContent = "Connexion réussie";
+                loadComments(); // Load comments after successful login
             })
             .catch((error) => {
                 document.getElementById("login-status").textContent = error.message;
@@ -156,4 +183,4 @@
 </script>
 
 </body>
-  </html>
+    </html>
