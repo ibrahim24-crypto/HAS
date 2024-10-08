@@ -11,6 +11,9 @@
             padding: 0;
             background-color: #f0f0f0;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .container {
@@ -20,6 +23,7 @@
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            flex-grow: 1; /* S'étend pour occuper l'espace restant */
         }
 
         h1 {
@@ -39,27 +43,6 @@
             width: 180px;
             border-radius: 10px;
             border: 3px solid #0f9d58;
-        }
-
-        .app-details {
-            margin-left: 20px;
-            flex: 1;
-            display: none; /* Cacher les détails au départ */
-        }
-
-        .app-details h2 {
-            font-size: 2em;
-            color: #333;
-        }
-
-        .app-details p {
-            font-size: 1.2em;
-            color: #777;
-        }
-
-        .app-details .rating {
-            font-size: 1.2em;
-            color: #ffa500;
         }
 
         .toggle-details-btn {
@@ -89,10 +72,33 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-bottom: 20px;
         }
 
         .download-btn:hover {
             background-color: #0c7a43;
+        }
+
+        .app-details {
+            display: none;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .app-details h2 {
+            font-size: 2em;
+            color: #333;
+        }
+
+        .app-details p {
+            font-size: 1.2em;
+            color: #777;
+        }
+
+        .app-details .rating {
+            font-size: 1.2em;
+            color: #ffa500;
         }
 
         footer {
@@ -100,7 +106,7 @@
             padding: 20px;
             background-color: #f5f5f5;
             color: #777;
-            margin-top: 20px;
+            margin-top: auto; /* Place le footer en bas de la page */
         }
 
         footer p {
@@ -114,16 +120,18 @@
         <h1>Télécharger Snaptube</h1>
         <div class="app-description">
             <img src="https://image.winudf.com/v2/user/admin/YWRtaW5fc25hcHR1YmVpY29uLnBuZ18xNTgyNDcyOTgyMTA2/icon.webp?w=280&fakeurl=1&type=.webp" alt="Icône de Snaptube">
-            <div class="app-details" id="appDetails">
-                <h2>Protégez vos données personnelles</h2>
-                <p>Téléchargez des vidéos depuis plus de 50 réseaux sociaux populaires en qualité HD.</p>
-                <p>Snaptube est une application mobile conviviale conçue pour les amateurs de vidéos. Elle permet de télécharger rapidement et facilement des vidéos directement sur votre appareil. Son interface simple et légère garantit une navigation fluide, même pour les utilisateurs ayant peu de compétences techniques.</p>
-                <p>En tant qu'outil puissant, Snaptube permet de télécharger des vidéos en un seul clic depuis de nombreux sites web, augmentant ainsi votre bibliothèque de vidéos.</p>
-                <p class="rating">★ 5.0</p>
-            </div>
         </div>
         <button class="toggle-details-btn" onclick="toggleDetails()">Afficher les Détails</button>
         <a href="https://d.apkpure.com/b/APK/com.snaptube.premium?version=latest"><button class="download-btn">Télécharger Maintenant</button></a>
+    </div>
+
+    <!-- Détails en bas de la page -->
+    <div class="app-details" id="appDetails">
+        <h2>Télécharger toutes les vidéos</h2>
+        <p>Téléchargez des vidéos depuis plus de 50 réseaux sociaux populaires en qualité HD.</p>
+        <p>Snaptube est une application mobile conviviale conçue pour les amateurs de vidéos. Elle permet de télécharger rapidement et facilement des vidéos directement sur votre appareil. Son interface simple et légère garantit une navigation fluide, même pour les utilisateurs ayant peu de compétences techniques.</p>
+        <p>En tant qu'outil puissant, Snaptube permet de télécharger des vidéos en un seul clic depuis de nombreux sites web, augmentant ainsi votre bibliothèque de vidéos.</p>
+        <p class="rating">★ 5.0</p>
     </div>
 
     <footer>
