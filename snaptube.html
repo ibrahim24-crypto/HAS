@@ -44,6 +44,7 @@
         .app-details {
             margin-left: 20px;
             flex: 1;
+            display: none; /* Cacher les détails au départ */
         }
 
         .app-details h2 {
@@ -61,6 +62,23 @@
             color: #ffa500;
         }
 
+        .toggle-details-btn {
+            background-color: #0f9d58;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            font-size: 1.4em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .toggle-details-btn:hover {
+            background-color: #0c7a43;
+        }
+
         .download-btn {
             background-color: #0f9d58;
             color: white;
@@ -74,22 +92,6 @@
         }
 
         .download-btn:hover {
-            background-color: #0c7a43;
-        }
-
-        .back-button {
-            padding: 10px 25px;
-            font-size: 1.2em;
-            background-color: #0f9d58;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .back-button:hover {
             background-color: #0c7a43;
         }
 
@@ -109,23 +111,19 @@
 <body>
 
     <div class="container">
-        <button class="back-button" onclick="goBack()">Retour</button>
         <h1>Télécharger Snaptube</h1>
         <div class="app-description">
             <img src="https://image.winudf.com/v2/user/admin/YWRtaW5fc25hcHR1YmVpY29uLnBuZ18xNTgyNDcyOTgyMTA2/icon.webp?w=280&fakeurl=1&type=.webp" alt="Icône de Snaptube">
-            <div class="app-details">
+            <div class="app-details" id="appDetails">
                 <h2>Protégez vos données personnelles</h2>
                 <p>Téléchargez des vidéos depuis plus de 50 réseaux sociaux populaires en qualité HD.</p>
                 <p>Snaptube est une application mobile conviviale conçue pour les amateurs de vidéos. Elle permet de télécharger rapidement et facilement des vidéos directement sur votre appareil. Son interface simple et légère garantit une navigation fluide, même pour les utilisateurs ayant peu de compétences techniques.</p>
-                <p>En tant qu'outil puissant, Snaptube permet de télécharger des vidéos en un seul clic depuis de nombreux sites web, augmentant ainsi votre bibliothèque de vidéos. Que vous préfériez du contenu éducatif, musical ou de divertissement, Snaptube vous offre la flexibilité de télécharger à partir de diverses plateformes en ligne.</p>
-                <p>L'application prend en charge plusieurs résolutions pour le streaming et le téléchargement, allant de 240p à une impressionnante qualité 4K HD, répondant ainsi aux besoins des utilisateurs soucieux des données comme à ceux exigeant des visuels de haute qualité.</p>
-                <p>Un des atouts de Snaptube est la possibilité de télécharger gratuitement des vidéos sans frais cachés. Les utilisateurs peuvent stocker leurs vidéos favorites pour les visionner hors ligne, idéal pour vous divertir sans connexion internet.</p>
-                <p>Snaptube permet également de convertir les vidéos en fichiers MP3, offrant une vaste sélection de chansons populaires à télécharger gratuitement. Cette fonction est particulièrement utile pour les amateurs de musique qui souhaitent conserver des clips vidéo sous forme de fichiers audio.</p>
-                <p>Enfin, le mode nuit intelligent assure une expérience visuelle confortable en conditions de faible luminosité, protégeant vos yeux lors de longues sessions de visionnage nocturnes.</p>
+                <p>En tant qu'outil puissant, Snaptube permet de télécharger des vidéos en un seul clic depuis de nombreux sites web, augmentant ainsi votre bibliothèque de vidéos.</p>
                 <p class="rating">★ 5.0</p>
-                <a href="https://d.apkpure.com/b/APK/com.snaptube.premium?version=latest"><button class="download-btn">Télécharger Maintenant</button></a>
             </div>
         </div>
+        <button class="toggle-details-btn" onclick="toggleDetails()">Afficher les Détails</button>
+        <a href="https://d.apkpure.com/b/APK/com.snaptube.premium?version=latest"><button class="download-btn">Télécharger Maintenant</button></a>
     </div>
 
     <footer>
@@ -133,9 +131,16 @@
     </footer>
 
     <script>
-        // Fonction pour revenir à la page précédente
-        function goBack() {
-            window.history.back();
+        function toggleDetails() {
+            var details = document.getElementById('appDetails');
+            var btn = document.querySelector('.toggle-details-btn');
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'block';
+                btn.textContent = 'Masquer les Détails';
+            } else {
+                details.style.display = 'none';
+                btn.textContent = 'Afficher les Détails';
+            }
         }
     </script>
 
