@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft - Téléchargement</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            flex-grow: 1;
+        }
+
+        .back-button {
+            padding: 10px 25px;
+            font-size: 1.2em;
+            background-color: #0f9d58;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #0c7a43;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .app-description {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .app-description img {
+            width: 180px;
+            border-radius: 10px;
+            border: 3px solid #0f9d58;
+        }
+
+        .toggle-details-btn {
+            background-color: #0f9d58;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            font-size: 1.4em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .toggle-details-btn:hover {
+            background-color: #0c7a43;
+        }
+
+        .download-btn {
+            background-color: #0f9d58;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            font-size: 1.4em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .download-btn:hover {
+            background-color: #0c7a43;
+        }
+
+        .app-details {
+            display: none;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .app-details h2 {
+            font-size: 2em;
+            color: #333;
+        }
+
+        .app-details p {
+            font-size: 1.2em;
+            color: #777;
+        }
+
+        .app-details .rating {
+            font-size: 1.2em;
+            color: #ffa500;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #777;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Bouton de retour -->
+        <button class="back-button" onclick="goBack()">Retour</button>
+
+        <h1>Télécharger Minecraft</h1>
+        <div class="app-description">
+            <img src="https://play-lh.googleusercontent.com/27O5tpaYE82W6m30rJ_MX3-UvshlDM6O8oXDxb6GseYW2T7P8UNT19727MGmz-0q3w=w100-h100-rw" alt="Icône de Minecraft">
+        </div>
+        <button class="toggle-details-btn" onclick="toggleDetails()">Afficher les Détails</button>
+        <a href="https://hole.apkdone.download/s/njyeBW9tY5BWiNN/download"><button class="download-btn">Télécharger Maintenant</button></a>
+    </div>
+
+    <!-- Détails en bas de la page -->
+    <div class="app-details" id="appDetails">
+        <h2>Plongez dans l'univers infini de Minecraft</h2>
+        <p>Minecraft est un jeu de construction créatif où les joueurs peuvent créer et explorer des mondes générés de manière procédurale. Le jeu permet aux joueurs de construire tout ce qu'ils peuvent imaginer à partir de blocs dans un environnement 3D.</p>
+        <p>Avec des modes créatif et survie, Minecraft offre une variété d'expériences. En mode créatif, les joueurs ont accès à des ressources illimitées pour construire sans contraintes. En mode survie, ils doivent explorer, trouver des ressources, et se défendre contre des créatures hostiles.</p>
+        <p>Le jeu est populaire pour ses vastes possibilités de personnalisation, de mods, et pour sa communauté active qui partage des créations et organise des événements multijoueurs.</p>
+        <p class="rating">★ 4.8</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Himo App Store - Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Fonction pour revenir à la page précédente
+        function goBack() {
+            window.history.back();
+        }
+
+        // Fonction pour afficher ou masquer les détails
+        function toggleDetails() {
+            var details = document.getElementById('appDetails');
+            var btn = document.querySelector('.toggle-details-btn');
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'block';
+                btn.textContent = 'Masquer les Détails';
+            } else {
+                details.style.display = 'none';
+                btn.textContent = 'Afficher les Détails';
+            }
+        }
+    </script>
+
+</body>
+          </html>
+          
