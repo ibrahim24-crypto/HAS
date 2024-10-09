@@ -4,7 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Himo App Store</title>
-    <link rel="stylesheet" href="index.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Remplit tout l'écran */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .header {
+            background-color: #0f9d58;
+            padding: 20px;
+            text-align: left;
+            color: white;
+            position: relative;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .menu-btn {
+            font-size: 1.5em;
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+
+        .menu {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: width 0.5s ease; /* Animation de la largeur */
+            padding-top: 60px;
+        }
+
+        .menu a {
+            padding: 10px 30px;
+            text-decoration: none;
+            font-size: 1.5em;
+            color: #818181;
+            display: block;
+            transition: color 0.3s; /* Animation de la couleur */
+        }
+
+        .menu a:hover {
+            color: #f1f1f1;
+        }
+
+        .menu .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2em;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-container {
+            text-align: center;
+            margin-top: 50px;
+            flex: 1; /* Prend tout l'espace restant */
+        }
+
+        .search-container input[type="text"] {
+            padding: 10px;
+            width: 60%;
+            font-size: 1.2em;
+            border: 2px solid #0f9d58;
+            border-radius: 5px;
+        }
+
+        .search-container button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #0f9d58;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+
+        .search-container button:hover {
+            background-color: #0c7a43;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #0f9d58;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
@@ -17,11 +121,11 @@
         <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">×</a>
         <a href="a-propos.html">À propos</a>
         <a href="confidentialite.html">Confidentialité</a>
-        <a href="mes-applis.html">Toutes les Applis</a>
+        <a href="mes-applis.html">Mes applis</a>
     </div>
 
     <div class="search-container">
-        <input type="text" id="search-input" placeholder="Recherchez une application...">
+        <input type="text" id="search-input" placeholder="Recherchez une application..." oninput="filterApps()">
         <button onclick="searchApp()">Rechercher</button>
     </div>
 
@@ -37,9 +141,9 @@
             "snaptube": "snaptube.html",
             "minecraft": "minecraft.html",
             "wps app pro": "wpspro.html",
-            "dream league": "dreamleague.html", // Mis à jour ici
-            "dream league soccer": "dreamleague.html", // Variante mise à jour
-            "dls": "dreamleague.html", // Abréviation mise à jour
+            "dream league": "dreamleague.html",
+            "dream league soccer": "dreamleague.html",
+            "dls": "dreamleague.html",
             "wps app": "wpspro.html",
             "wps pro": "wpspro.html",
             "wps": "wpspro.html"
@@ -64,11 +168,13 @@
         // Fonction pour ouvrir le menu
         function openMenu() {
             document.getElementById("side-menu").style.width = "250px";
+            document.querySelector(".menu-btn").style.display = "none"; // Masquer le bouton lorsque le menu est ouvert
         }
 
         // Fonction pour fermer le menu
         function closeMenu() {
             document.getElementById("side-menu").style.width = "0";
+            document.querySelector(".menu-btn").style.display = "block"; // Afficher le bouton lorsque le menu est fermé
         }
 
         // Fonction pour effectuer la recherche d'une application
