@@ -152,11 +152,11 @@
             "yassine tv": "ytv.html",
             "ytv": "ytv.html",
             "yassine": "ytv.html",
-            "ppsspp gold": "ppsspp-gold.html",
-            "ppsspp": "ppsspp-gold.html",       // Alias pour PPSSPP
-            "psp": "ppsspp-gold.html",          // Alias pour PSP
-            "ppsspp emulator": "ppsspp-gold.html", // Alias pour PPSSPP Emulator
-            "ppsspp gold emulator": "ppsspp-gold.html" // Alias pour PPSSPP Gold Emulator
+            "ppsspp gold": "pg.html",           // Lien vers pg.html
+            "ppsspp": "pg.html",                 // Alias pour PPSSPP
+            "psp": "pg.html",                    // Alias pour PSP
+            "ppsspp emulator": "pg.html",        // Alias pour PPSSPP Emulator
+            "ppsspp gold emulator": "pg.html"    // Alias pour PPSSPP Gold Emulator
         };
 
         // Fonction pour vérifier si une chaîne est contenue avec des lettres manquantes
@@ -165,7 +165,7 @@
             let j = 0;
 
             for (let i = 0; i < appName.length; i++) {
-                if (j < input.length && appName[i].toLowerCase() === input[j]) {
+            if (j < input.length && appName[i].toLowerCase() === input[j]) {
                     j++;
                 } else {
                     missingChars++;
@@ -214,4 +214,4 @@
     </script>
 
 </body>
-    </html>
+</html>
