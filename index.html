@@ -119,22 +119,40 @@
 
     <div id="side-menu" class="menu">
         <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">×</a>
-        <a href="a-propos.html">À propos</a>
-        <a href="confidentialite.html">Confidentialité</a>
-        <a href="mes-applis.html">Mes applis</a>
-        <a href="ytp.html">YouTube Premium</a> <!-- Lien vers la page YouTube Premium -->
+        <a href="a-propos.html" onclick="logEvent('about_page_click')">À propos</a>
+        <a href="confidentialite.html" onclick="logEvent('privacy_page_click')">Confidentialité</a>
+        <a href="mes-applis.html" onclick="logEvent('my_apps_page_click')">Mes applis</a>
+        <a href="ytp.html" onclick="logEvent('youtube_premium_page_click')">YouTube Premium</a> <!-- Lien vers la page YouTube Premium -->
     </div>
 
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Recherchez une application..." oninput="filterApps()">
-        <button onclick="searchApp()">Rechercher</button>
+        <button onclick="searchApp(); logEvent('search_button_click')">Rechercher</button>
     </div>
 
     <footer>
         <p>&copy; 2024 Himo App Store - Tous droits réservés.</p>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js"></script>
     <script>
+        // Configuration de votre application Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzWklk5pRUPp45XIlHAOqX-gS7lqsq4uU",
+            authDomain: "himo-app-store-f1954.firebaseapp.com",
+            databaseURL: "https://himo-app-store-f1954-default-rtdb.firebaseio.com",
+            projectId: "himo-app-store-f1954",
+            storageBucket: "himo-app-store-f1954.appspot.com",
+            messagingSenderId: "1088843339314",
+            appId: "1:1088843339314:web:34e28adc5c77e3b7968e2b",
+            measurementId: "G-WPHB7VFZM0"
+        };
+
+        // Initialiser Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const analytics = firebase.getAnalytics(app);
+
         // Liste des applications avec variantes pour PPSSPP Gold
         const apps = {
             "chiffrement": "chiffrement.html",
@@ -165,7 +183,7 @@
             let j = 0;
 
             for (let i = 0; i < appName.length; i++) {
-            if (j < input.length && appName[i].toLowerCase() === input[j]) {
+                if (j < input.length && appName[i].toLowerCase() === input[j]) {
                     j++;
                 } else {
                     missingChars++;
@@ -195,6 +213,7 @@
 
             for (const app in apps) {
                 if (app.toLowerCase() === input || isSimilar(input, app)) {
+                    logEvent(`app_click_${app}`); // Log l'événement avant de rediriger
                     window.location.href = apps[app];
                     found = true;
                     break;
@@ -211,7 +230,11 @@
                 }
             }
         }
+
+        // Fonction pour enregistrer un événement
+        function logEvent(eventName) {
+            analytics.logEvent(eventName);
+        }
     </script>
 
-</body>
-</html>
+</body
