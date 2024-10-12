@@ -39,15 +39,35 @@
         .download-button:hover {
             background-color: #ddb347;
         }
+        .back-button {
+            background-color: #ccc;
+            color: black;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 20px;
+        }
+        .back-button:hover {
+            background-color: #bbb;
+        }
     </style>
 </head>
 <body>
-    <button class="download-button" onclick="goBack()">Retour</button>
+    <button class="back-button" onclick="goBack()">Retour</button>
+
     <div class="app-container">
         <h1>Ppsspp Gold</h1>
         <img src="https://1.bp.blogspot.com/-pQi7uM82WS4/XyzlSPB33RI/AAAAAAAAAKI/OnR95nR37TcL2ANlMwqTM0CbJ2ViCu1PgCLcBGAsYHQ/s1600/ppsspp-gold-logo.png" alt="Ppsspp Gold Logo">
         <p>Le meilleur émulateur PSP pour Android, maintenant disponible en version Gold.</p>
         <a class="download-button" href="https://ppsspp.gold/dl" target="_blank">Télécharger Ppsspp Gold</a>
     </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>
