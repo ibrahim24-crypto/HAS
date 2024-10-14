@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de l'application Netflix</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .app-details {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-details">
+        <h1>Netflix</h1>
+        <!-- Image de l'application Netflix -->
+        <img src="https://play-lh.googleusercontent.com/TBRwjS_qfJCSj1m7zZB93FnpJM5fSpMA_wUlFDLxWAb45T9RmwBvQd5cWR5viJJOhkI=w480-h960-rw" alt="Logo de Netflix">
+        <p>Regardez des séries TV et des films sur votre téléphone ou tablette n'importe où, n'importe quand.</p>
+        <button onclick="showDetails()">Afficher les détails</button>
+        <button onclick="goBack()">Retour</button>
+        <button onclick="downloadApp()">Download</button>
+    </div>
+
+    <script>
+        function showDetails() {
+            alert("Netflix est une plateforme de streaming qui propose des films, séries TV, documentaires, et plus encore.");
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        function downloadApp() {
+            // Lien fictif de téléchargement
+            window.location.href = "https://hole.apkdone.download/s/QpaNtZAKP8FDr8B/download";
+        }
+    </script>
+
+</body>
+</html>
 
