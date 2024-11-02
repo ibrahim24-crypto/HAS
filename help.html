@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Désactiver les Pop-ups</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .instructions {
+            display: none;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #0f9d58;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0c7a43;
+        }
+    </style>
+</head>
+<body>
+
+    <button onclick="showInstructions()">Comment désactiver les pop-ups</button>
+    
+    <div id="instructions" class="instructions">
+        <h3>Désactiver les Pop-ups</h3>
+        <p><strong>Google Chrome :</strong> Allez dans Paramètres > Confidentialité et sécurité > Paramètres du site > Pop-ups et redirections. Activez "Autoriser tous les sites à afficher des fenêtres contextuelles".</p>
+        <p><strong>Mozilla Firefox :</strong> Allez dans Options > Confidentialité et sécurité > Autorisations. Décochez "Bloquer les fenêtres popup".</p>
+        <p><strong>Microsoft Edge :</strong> Allez dans Paramètres > Cookies et autorisations de site > Pop-ups et redirections. Désactivez l'option "Bloquer" pour autoriser les pop-ups.</p>
+        <p><strong>Safari :</strong> Allez dans Safari > Préférences > Sécurité. Décochez "Bloquer les fenêtres contextuelles".</p>
+    </div>
+
+    <script>
+        function showInstructions() {
+            const instructions = document.getElementById('instructions');
+            instructions.style.display = instructions.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+
+</body>
+</html>
