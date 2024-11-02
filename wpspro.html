@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Téléchargez WPS App Pro pour tester la sécurité de votre réseau Wi-Fi.">
+    <meta name="keywords" content="WPS App Pro, sécurité Wi-Fi, téléchargement">
     <title>WPS App Pro - Téléchargement</title>
     <style>
         body {
@@ -26,7 +28,7 @@
             flex-grow: 1;
         }
 
-        .back-button {
+        .back-button, .toggle-details-btn, .download-btn {
             padding: 10px 25px;
             font-size: 1.2em;
             background-color: #0f9d58;
@@ -35,9 +37,10 @@
             border-radius: 5px;
             cursor: pointer;
             margin-bottom: 20px;
+            transition: background-color 0.3s;
         }
 
-        .back-button:hover {
+        .back-button:hover, .toggle-details-btn:hover, .download-btn:hover {
             background-color: #0c7a43;
         }
 
@@ -51,6 +54,7 @@
         .app-description {
             display: flex;
             align-items: center;
+            justify-content: center;
             margin-top: 20px;
         }
 
@@ -58,40 +62,6 @@
             width: 180px;
             border-radius: 10px;
             border: 3px solid #0f9d58;
-        }
-
-        .toggle-details-btn {
-            background-color: #0f9d58;
-            color: white;
-            padding: 15px 30px;
-            text-align: center;
-            font-size: 1.4em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
-
-        .toggle-details-btn:hover {
-            background-color: #0c7a43;
-        }
-
-        .download-btn {
-            background-color: #0f9d58;
-            color: white;
-            padding: 15px 30px;
-            text-align: center;
-            font-size: 1.4em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-bottom: 20px;
-        }
-
-        .download-btn:hover {
-            background-color: #0c7a43;
         }
 
         .app-details {
@@ -132,18 +102,16 @@
 <body>
 
     <div class="container">
-        <!-- Bouton de retour -->
         <button class="back-button" onclick="goBack()">Retour</button>
 
         <h1>Télécharger WPS App Pro</h1>
         <div class="app-description">
-            <img src="https://play-lh.googleusercontent.com/_75vPEH7I0ERueCHIRtDV0Z4kp89jGMsQlHAH4nu1SXzAAFz4ZcOPw-hHM_Jj1nFw1Y=w480-h960-rw" alt="Icône de WPS App Pro">
+            <img src="https://play-lh.googleusercontent.com/_75vPEH7I0ERueCHIRtDV0Z4kp89jGMsQlHAH4nu1SXzAAFz4ZcOPw-hHM_Jj1nFw1Y=w480-h960-rw" alt="Icône de l'application WPS Pro montrant une interface utilisateur moderne et sécurisée">
         </div>
         <button class="toggle-details-btn" onclick="toggleDetails()">Afficher les Détails</button>
-        <a href="https://drive.google.com/uc?export=download&id=1-Aa8elIiC-xk4bt2CoksEmV_2Hk2Yxfy" class="download-btn"><button>Télécharger Maintenant</button></a>
+        <a href="https://drive.google.com/uc?export=download&id=1-Aa8elIiC-xk4bt2CoksEmV_2Hk2Yxfy" class="download-btn">Télécharger Maintenant</a>
     </div>
 
-    <!-- Détails en bas de la page -->
     <div class="app-details" id="appDetails">
         <h2>WPS App Pro</h2>
         <p>WPS App Pro est une application qui vous permet de vérifier la sécurité des réseaux Wi-Fi en testant la connexion via le protocole WPS. En utilisant cette application, vous pouvez détecter les failles potentielles de sécurité et vous assurer que votre réseau Wi-Fi est protégé contre les accès non autorisés.</p>
@@ -157,12 +125,10 @@
     </footer>
 
     <script>
-        // Fonction pour revenir à la page précédente
         function goBack() {
             window.history.back();
         }
 
-        // Fonction pour afficher ou masquer les détails
         function toggleDetails() {
             var details = document.getElementById('appDetails');
             var btn = document.querySelector('.toggle-details-btn');
@@ -177,4 +143,4 @@
     </script>
 
 </body>
-  </html>
+</html>
