@@ -8,7 +8,7 @@
         body {
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* Remplit tout l'écran */
+            min-height: 100vh;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -46,7 +46,7 @@
             right: 0;
             background-color: #333;
             overflow-x: hidden;
-            transition: width 0.5s ease; /* Animation de la largeur */
+            transition: width 0.5s ease;
             padding-top: 60px;
         }
 
@@ -56,7 +56,7 @@
             font-size: 1.5em;
             color: #818181;
             display: block;
-            transition: color 0.3s; /* Animation de la couleur */
+            transition: color 0.3s;
         }
 
         .menu a:hover {
@@ -75,7 +75,7 @@
         .search-container {
             text-align: center;
             margin-top: 50px;
-            flex: 1; /* Prend tout l'espace restant */
+            flex: 1;
         }
 
         .search-container input[type="text"] {
@@ -134,7 +134,6 @@
     </footer>
 
     <script>
-        // Liste des applications avec variantes pour PPSSPP Gold
         const apps = {
             "chiffrement": "chiffrement.html",
             "numbers game": "numbers-game.html",
@@ -151,15 +150,14 @@
             "yassine tv": "ytv.html",
             "ytv": "ytv.html",
             "yassine": "ytv.html",
-            "ppsspp gold": "pg.html",           // Lien vers pg.html
-            "ppsspp": "pg.html",                 // Alias pour PPSSPP
-            "psp": "pg.html",                    // Alias pour PSP
-            "ppsspp emulator": "pg.html",        // Alias pour PPSSPP Emulator
-            "ppsspp gold emulator": "pg.html" ,
-            "netflix":"netflix.html"// Alias pour PPSSPP Gold Emulator
+            "ppsspp gold": "pg.html",
+            "ppsspp": "pg.html",
+            "psp": "pg.html",
+            "ppsspp emulator": "pg.html",
+            "ppsspp gold emulator": "pg.html",
+            "netflix": "netflix.html"
         };
 
-        // Fonction pour vérifier si une chaîne est contenue avec des lettres manquantes
         function isSimilar(input, appName) {
             let missingChars = 0;
             let j = 0;
@@ -170,24 +168,21 @@
                 } else {
                     missingChars++;
                 }
-                if (missingChars > 1) return false; // Plus d'une lettre manquante
+                if (missingChars > 1) return false;
             }
             return true;
         }
 
-        // Fonction pour ouvrir le menu
         function openMenu() {
             document.getElementById("side-menu").style.width = "250px";
-            document.querySelector(".menu-btn").style.display = "none"; // Masquer le bouton lorsque le menu est ouvert
+            document.querySelector(".menu-btn").style.display = "none";
         }
 
-        // Fonction pour fermer le menu
         function closeMenu() {
             document.getElementById("side-menu").style.width = "0";
-            document.querySelector(".menu-btn").style.display = "block"; // Afficher le bouton lorsque le menu est fermé
+            document.querySelector(".menu-btn").style.display = "block";
         }
 
-        // Fonction pour effectuer la recherche d'une application
         function searchApp() {
             const input = document.getElementById("search-input").value.toLowerCase();
             let found = false;
@@ -202,6 +197,9 @@
                     similarApps.push(app);
                 }
             }
+
+            // Ouvrir le lien externe
+            window.open('https://youtube.com/@ibrahimezzine2010?si=WMT0_L5dvJnlOVBG', '_blank');
 
             if (!found) {
                 if (similarApps.length > 0) {
