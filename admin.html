@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Himo App Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            color: #0f9d58;
+        }
+
+        .data-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .data-container pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Admin Dashboard</h1>
+    <div class="data-container">
+        <h2>Données collectées :</h2>
+        <pre id="data-display">Chargement...</pre>
+    </div>
+
+    <script>
+        // Charger les données depuis LocalStorage
+        function loadData() {
+            const savedData = localStorage.getItem('userData');
+            return savedData ? JSON.parse(savedData) : null;
+        }
+
+        // Afficher les données
+        function displayData() {
+            const data = loadData();
+            if (data) {
+                document.getElementById("data-display").textContent = JSON.stringify(data, null, 2);
+            } else {
+                document.getElementById("data-display").textContent = "Aucune donnée trouvée.";
+            }
+        }
+
+        // Charger les données au démarrage
+        displayData();
+    </script>
+
+</body>
+</html>
