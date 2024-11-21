@@ -110,123 +110,116 @@
         }
     </style>
 </head>
-
-<script defer data-domain="ibrahim24-crypto.github.io/has" src="https://plausible.io/js/script.js"></script>
-<!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-WPHB7VFZM0"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-WPHB7VFZM0'); </script>
-
 <body>
 
+    <!-- Header -->
     <div class="header">
-        <h1>Bienvenue !</h1>
+        <h1>Bienvenue sur Himo App Store</h1>
         <button class="menu-btn" onclick="openMenu()">☰</button>
     </div>
 
+    <!-- Menu -->
     <div id="side-menu" class="menu">
         <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">×</a>
-        <a href="a-propos.html">À propos</a>
-        <a href="confidentialite.html">Confidentialité</a>
-        <a href="mes-applis.html">Mes applis</a>
-        <a href="help.html">Aide</a>
-        <!-- Bouton Admin ajouté ici -->
-        <a href="javascript:void(0)" onclick="verifyAdmin()">Admin</a>
+        <a href="a-propos.html" onclick="trackButtonClick('À propos')">À propos</a>
+        <a href="confidentialite.html" onclick="trackButtonClick('Confidentialité')">Confidentialité</a>
+        <a href="mes-applis.html" onclick="trackButtonClick('Mes applis')">Mes applis</a>
+        <a href="help.html" onclick="trackButtonClick('Aide')">Aide</a>
     </div>
 
+    <!-- Search container -->
     <div class="search-container">
-        <input type="text" id="search-input" placeholder="Recherchez une application..." oninput="filterApps()">
+        <input type="text" id="search-input" placeholder="Recherchez une application..." oninput="trackSearch()">
         <button onclick="searchApp()">Rechercher</button>
     </div>
 
+    <!-- Footer -->
     <footer>
         <p>&copy; 2024 Himo App Store - Tous droits réservés.</p>
     </footer>
 
-<script>
-    const apps = {
-        "chiffrement": "chiffrement.html",
-        "numbers game": "numbers-game.html",
-        "snaptube": "snaptube.html",
-        "minecraft": "minecraft.html",
-        "wps app pro": "wpspro.html",
-        "dream league": "dreamleague.html",
-        "dream league soccer": "dreamleague.html",
-        "dls": "dreamleague.html",
-        "wps app": "wpspro.html",
-        "wps pro": "wpspro.html",
-        "wps": "wpspro.html",
-        "youtube premium": "ytp.html",
-        "yassine tv": "ytv.html",
-        "ytv": "ytv.html",
-        "yassine": "ytv.html",
-        "ppsspp gold": "pg.html",
-        "ppsspp": "pg.html",
-        "psp": "pg.html",
-        "ppsspp emulator": "pg.html",
-        "ppsspp gold emulator": "pg.html",
-        "netflix": "netflix.html"
-    };
+    <script>
+        // Initialiser les données collectées
+        let data = {
+            "visitors": 0,
+            "searches": [],
+            "buttonClicks": []
+        };
 
-    function isSimilar(input, appName) {
-        let missingChars = 0;
-        let j = 0;
+        // Charger les données depuis le fichier JSON au début
+        fetch('data.json')
+            .then(response => response.json())
+            .then(fetchedData => {
+                data = fetchedData;
+            })
+            .catch(error => console.error('Erreur de chargement des données:', error));
 
-        for (let i = 0; i < appName.length; i++) {
-            if (j < input.length && appName[i].toLowerCase() === input[j]) {
-                j++;
-            } else {
-                missingChars++;
-            }
-            if (missingChars > 1) return false;
-        }
-        return true;
-    }
-
-    function openMenu() {
-        document.getElementById("side-menu").style.width = "250px";
-        document.querySelector(".menu-btn").style.display = "none";
-    }
-
-    function closeMenu() {
-        document.getElementById("side-menu").style.width = "0";
-        document.querySelector(".menu-btn").style.display = "block";
-    }
-
-    function searchApp() {
-        const input = document.getElementById("search-input").value.toLowerCase();
-        let found = false;
-        const similarApps = [];
-
-        for (const app in apps) {
-            if (app.toLowerCase() === input || isSimilar(input, app)) {
-                window.location.href = apps[app];
-                found = true;
-                break;
-            } else if (input.length > 0 && app.toLowerCase().includes(input)) {
-                similarApps.push(app);
+        // Suivi des recherches
+        function trackSearch() {
+            const searchInput = document.getElementById('search-input').value.trim();
+            if (searchInput) {
+                data.searches.push(searchInput);  // Ajoute la recherche à la liste
+                updateData();
             }
         }
 
-        // Ouvrir la chaîne YouTube dans un nouvel onglet
-        window.open('https://youtube.com/@ibrahimezzine2010?si=WMT0_L5dvJnlOVBG', '_blank');
+        // Suivi des clics sur les boutons du menu
+        function trackButtonClick(buttonName) {
+            data.buttonClicks.push(buttonName);  // Ajoute le bouton cliqué à la liste
+            updateData();
+        }
 
-        if (!found) {
-            if (similarApps.length > 0) {
-                alert("Application non trouvée. Peut-être vouliez-vous : " + similarApps.join(", ") + " ?");
-            } else {
+        // Mise à jour des données dans le fichier JSON
+        function updateData() {
+            fetch('data.json', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(updatedData => {
+                console.log('Données mises à jour:', updatedData);
+            })
+            .catch(error => console.error('Erreur de mise à jour des données:', error));
+        }
+
+        // Fonction d'ouverture du menu
+        function openMenu() {
+            document.getElementById("side-menu").style.width = "250px";
+            document.querySelector(".menu-btn").style.display = "none";
+        }
+
+        // Fonction de fermeture du menu
+        function closeMenu() {
+            document.getElementById("side-menu").style.width = "0";
+            document.querySelector(".menu-btn").style.display = "block";
+        }
+
+        // Fonction de recherche d'application
+        function searchApp() {
+            const input = document.getElementById("search-input").value.toLowerCase();
+            let found = false;
+            const apps = {
+                "chiffrement": "chiffrement.html",
+                "numbers game": "numbers-game.html",
+                // Ajouter les autres applications ici
+            };
+
+            for (const app in apps) {
+                if (app.toLowerCase() === input) {
+                    window.location.href = apps[app];
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
                 alert("Application non trouvée.");
             }
         }
-    }
-
-    // Fonction de vérification du code d'accès admin
-    function verifyAdmin() {
-        const code = prompt("Entrez le code d'accès pour Admin :");
-        if (code === "4285") {
-            window.location.href = "admin.html"; // Redirige vers la page admin
-        } else {
-            alert("Code incorrect.");
-        }
-    }
-</script>
+    </script>
 
 </body>
 </html>
