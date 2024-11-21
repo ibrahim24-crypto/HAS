@@ -1,14 +1,5 @@
 {
-  "apps": [
-    {
-      "id": 1,
-      "name": "App 1",
-      "description": "Ceci est une description de l'App 1."
-    },
-    {
-      "id": 2,
-      "name": "App 2",
-      "description": "Ceci est une description de l'App 2."
-    }
-  ]
+  "visitors": 0,
+  "searches": [],
+  "buttonClicks": []
 }
