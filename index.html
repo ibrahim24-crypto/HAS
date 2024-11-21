@@ -110,110 +110,91 @@
         }
     </style>
 </head>
-
-<script defer data-domain="ibrahim24-crypto.github.io/has" src="https://plausible.io/js/script.js"></script>
-<!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-WPHB7VFZM0"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-WPHB7VFZM0'); </script>
-
 <body>
 
     <div class="header">
-        <h1>Bienvenue !</h1>
+        <h1>Bienvenue sur Himo App Store !</h1>
         <button class="menu-btn" onclick="openMenu()">☰</button>
     </div>
 
     <div id="side-menu" class="menu">
         <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">×</a>
-        <a href="a-propos.html">À propos</a>
-        <a href="confidentialite.html">Confidentialité</a>
-        <a href="mes-applis.html">Mes applis</a> 
-        <a href="help.html">aide</a>
+        <a href="a-propos.html" onclick="logButtonClick('À propos')">À propos</a>
+        <a href="confidentialite.html" onclick="logButtonClick('Confidentialité')">Confidentialité</a>
+        <a href="mes-applis.html" onclick="logButtonClick('Mes applis')">Mes applis</a>
+        <a href="help.html" onclick="logButtonClick('Aide')">Aide</a>
     </div>
 
     <div class="search-container">
-        <input type="text" id="search-input" placeholder="Recherchez une application..." oninput="filterApps()">
+        <input type="text" id="search-input" placeholder="Recherchez une application...">
         <button onclick="searchApp()">Rechercher</button>
     </div>
 
     <footer>
         <p>&copy; 2024 Himo App Store - Tous droits réservés.</p>
     </footer>
-<script>
-    const apps = {
-        "chiffrement": "chiffrement.html",
-        "numbers game": "numbers-game.html",
-        "snaptube": "snaptube.html",
-        "minecraft": "minecraft.html",
-        "wps app pro": "wpspro.html",
-        "dream league": "dreamleague.html",
-        "dream league soccer": "dreamleague.html",
-        "dls": "dreamleague.html",
-        "wps app": "wpspro.html",
-        "wps pro": "wpspro.html",
-        "wps": "wpspro.html",
-        "youtube premium": "ytp.html",
-        "yassine tv": "ytv.html",
-        "ytv": "ytv.html",
-        "yassine": "ytv.html",
-        "ppsspp gold": "pg.html",
-        "ppsspp": "pg.html",
-        "psp": "pg.html",
-        "ppsspp emulator": "pg.html",
-        "ppsspp gold emulator": "pg.html",
-        "netflix": "netflix.html"
-    };
 
-    function isSimilar(input, appName) {
-        let missingChars = 0;
-        let j = 0;
+    <script>
+        // Simuler data.json avec LocalStorage
+        let data = {
+            visitors: 0,
+            searches: [],
+            buttonClicks: []
+        };
 
-        for (let i = 0; i < appName.length; i++) {
-            if (j < input.length && appName[i].toLowerCase() === input[j]) {
-                j++;
+        // Charger les données depuis LocalStorage
+        function loadData() {
+            const savedData = localStorage.getItem('userData');
+            if (savedData) {
+                data = JSON.parse(savedData);
+            }
+        }
+
+        // Sauvegarder les données dans LocalStorage
+        function saveData() {
+            localStorage.setItem('userData', JSON.stringify(data));
+        }
+
+        // Initialisation
+        loadData();
+        data.visitors += 1; // Ajouter un visiteur
+        saveData();
+
+        // Logger une recherche
+        function searchApp() {
+            const searchQuery = document.getElementById('search-input').value.trim();
+            if (searchQuery) {
+                data.searches.push({ query: searchQuery, timestamp: new Date().toISOString() });
+                saveData();
+                alert(`Recherche enregistrée : ${searchQuery}`);
             } else {
-                missingChars++;
-            }
-            if (missingChars > 1) return false;
-        }
-        return true;
-    }
-
-    function openMenu() {
-        document.getElementById("side-menu").style.width = "250px";
-        document.querySelector(".menu-btn").style.display = "none";
-    }
-
-    function closeMenu() {
-        document.getElementById("side-menu").style.width = "0";
-        document.querySelector(".menu-btn").style.display = "block";
-    }
-
-    function searchApp() {
-        const input = document.getElementById("search-input").value.toLowerCase();
-        let found = false;
-        const similarApps = [];
-
-        for (const app in apps) {
-            if (app.toLowerCase() === input || isSimilar(input, app)) {
-                window.location.href = apps[app];
-                found = true;
-                break;
-            } else if (input.length > 0 && app.toLowerCase().includes(input)) {
-                similarApps.push(app);
+                alert("Veuillez entrer une recherche.");
             }
         }
 
-        // Ouvrir la chaîne YouTube dans un nouvel onglet
-        window.open('https://youtube.com/@ibrahimezzine2010?si=WMT0_L5dvJnlOVBG', '_blank');
-
-        if (!found) {
-            if (similarApps.length > 0) {
-                alert("Application non trouvée. Peut-être vouliez-vous : " + similarApps.join(", ") + " ?");
-            } else {
-                alert("Application non trouvée.");
-            }
+        // Logger un clic de bouton
+        function logButtonClick(buttonName) {
+            data.buttonClicks.push({ button: buttonName, timestamp: new Date().toISOString() });
+            saveData();
         }
-    }
-</script>
-    
+
+        // Ouvrir le menu
+        function openMenu() {
+            document.getElementById("side-menu").style.width = "250px";
+            document.querySelector(".menu-btn").style.display = "none";
+            logButtonClick('Menu');
+        }
+
+        // Fermer le menu
+        function closeMenu() {
+            document.getElementById("side-menu").style.width = "0";
+            document.querySelector(".menu-btn").style.display = "block";
+            logButtonClick('Close Menu');
+        }
+
+        // Afficher les données dans la console (pour test)
+        console.log(data);
+    </script>
+
 </body>
 </html>
