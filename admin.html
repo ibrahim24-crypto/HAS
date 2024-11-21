@@ -3,63 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Himo App Store</title>
+    <title>Himo App Store - Données Collectées</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
         }
 
-        h1 {
-            color: #0f9d58;
+        .header {
+            background-color: #0f9d58;
+            padding: 20px;
+            text-align: left;
+            color: white;
+        }
+
+        .header h1 {
+            margin: 0;
         }
 
         .data-container {
-            margin-top: 20px;
+            margin: 20px;
             padding: 20px;
             background-color: #fff;
-            border: 1px solid #ddd;
             border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .data-container pre {
-            background-color: #f0f0f0;
+        .data-container h2 {
+            text-align: center;
+            color: #0f9d58;
+        }
+
+        .data-list {
+            margin-top: 20px;
+            font-size: 1.2em;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .data-list li {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
             padding: 10px;
+            margin: 10px 0;
             border-radius: 5px;
-            overflow-x: auto;
+            transition: background-color 0.3s;
+        }
+
+        .data-list li:hover {
+            background-color: #e0f7e1;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #0f9d58;
+            color: white;
         }
     </style>
 </head>
+
 <body>
 
-    <h1>Admin Dashboard</h1>
-    <div class="data-container">
-        <h2>Données collectées :</h2>
-        <pre id="data-display">Chargement...</pre>
+    <div class="header">
+        <h1>Himo App Store - Données Collectées</h1>
     </div>
 
-    <script>
-        // Charger les données depuis LocalStorage
-        function loadData() {
-            const savedData = localStorage.getItem('userData');
-            return savedData ? JSON.parse(savedData) : null;
-        }
+    <div class="data-container">
+        <h2>Données collectées :</h2>
+        <ul id="data-list" class="data-list">
+            <!-- Les données collectées seront affichées ici -->
+        </ul>
+    </div>
 
-        // Afficher les données
-        function displayData() {
-            const data = loadData();
-            if (data) {
-                document.getElementById("data-display").textContent = JSON.stringify(data, null, 2);
-            } else {
-                document.getElementById("data-display").textContent = "Aucune donnée trouvée.";
-            }
-        }
+    <footer>
+        <p>&copy; 2024 Himo App Store - Tous droits réservés.</p>
+    </footer>
 
-        // Charger les données au démarrage
-        displayData();
-    </script>
+<script>
+    // Exemple de données collectées, elles peuvent venir de votre data.json
+    const collectedData = [
+        { appName: "Minecraft", version: "1.20", rating: "4.5/5" },
+        { appName: "Netflix", version: "8.4", rating: "4.7/5" },
+        { appName: "Dream League Soccer", version: "7.0", rating: "4.3/5" },
+        { appName: "YouTube Premium", version: "2024", rating: "4.8/5" }
+    ];
+
+    // Fonction pour afficher les données collectées dans la page
+    function displayData() {
+        const dataList = document.getElementById("data-list");
+
+        collectedData.forEach(data => {
+            const listItem = document.createElement("li");
+            listItem.innerHTML = `<strong>Application :</strong> ${data.appName} <br>
+                                  <strong>Version :</strong> ${data.version} <br>
+                                  <strong>Note :</strong> ${data.rating}`;
+            dataList.appendChild(listItem);
+        });
+    }
+
+    // Afficher les données lorsque la page est chargée
+    displayData();
+</script>
 
 </body>
 </html>
