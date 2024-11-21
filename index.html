@@ -20,56 +20,10 @@
             padding: 20px;
             text-align: left;
             color: white;
-            position: relative;
         }
 
         .header h1 {
             margin: 0;
-        }
-
-        .menu-btn {
-            font-size: 1.5em;
-            background-color: transparent;
-            border: none;
-            color: white;
-            cursor: pointer;
-            position: absolute;
-            right: 20px;
-            top: 20px;
-        }
-
-        .menu {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            top: 0;
-            right: 0;
-            background-color: #333;
-            overflow-x: hidden;
-            transition: width 0.5s ease;
-            padding-top: 60px;
-        }
-
-        .menu a {
-            padding: 10px 30px;
-            text-decoration: none;
-            font-size: 1.5em;
-            color: #818181;
-            display: block;
-            transition: color 0.3s;
-        }
-
-        .menu a:hover {
-            color: #f1f1f1;
-        }
-
-        .menu .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 2em;
-            color: white;
-            cursor: pointer;
         }
 
         .search-container {
@@ -97,10 +51,6 @@
             margin-left: 10px;
         }
 
-        .search-container button:hover {
-            background-color: #0c7a43;
-        }
-
         footer {
             text-align: center;
             margin-top: 20px;
@@ -114,20 +64,13 @@
 
     <div class="header">
         <h1>Bienvenue sur Himo App Store !</h1>
-        <button class="menu-btn" onclick="openMenu()">☰</button>
-    </div>
-
-    <div id="side-menu" class="menu">
-        <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">×</a>
-        <a href="a-propos.html" onclick="logButtonClick('À propos')">À propos</a>
-        <a href="confidentialite.html" onclick="logButtonClick('Confidentialité')">Confidentialité</a>
-        <a href="mes-applis.html" onclick="logButtonClick('Mes applis')">Mes applis</a>
-        <a href="help.html" onclick="logButtonClick('Aide')">Aide</a>
     </div>
 
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Recherchez une application...">
         <button onclick="searchApp()">Rechercher</button>
+        <br><br>
+        <button onclick="verifyCode()">Admin</button>
     </div>
 
     <footer>
@@ -172,28 +115,15 @@
             }
         }
 
-        // Logger un clic de bouton
-        function logButtonClick(buttonName) {
-            data.buttonClicks.push({ button: buttonName, timestamp: new Date().toISOString() });
-            saveData();
+        // Vérifier le code
+        function verifyCode() {
+            const code = prompt("Entrez le code d'accès :");
+            if (code === "4285") {
+                window.location.href = "admin.html";
+            } else {
+                alert("Code incorrect.");
+            }
         }
-
-        // Ouvrir le menu
-        function openMenu() {
-            document.getElementById("side-menu").style.width = "250px";
-            document.querySelector(".menu-btn").style.display = "none";
-            logButtonClick('Menu');
-        }
-
-        // Fermer le menu
-        function closeMenu() {
-            document.getElementById("side-menu").style.width = "0";
-            document.querySelector(".menu-btn").style.display = "block";
-            logButtonClick('Close Menu');
-        }
-
-        // Afficher les données dans la console (pour test)
-        console.log(data);
     </script>
 
 </body>
