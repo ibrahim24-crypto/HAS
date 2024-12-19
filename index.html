@@ -111,9 +111,6 @@
     </style>
 </head>
 
-<script defer data-domain="ibrahim24-crypto.github.io/has" src="https://plausible.io/js/script.js"></script>
-<!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-WPHB7VFZM0"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-WPHB7VFZM0'); </script>
-
 <body>
 
     <div class="header">
@@ -127,12 +124,11 @@
         <a href="confidentialite.html">Confidentialité</a>
         <a href="mes-applis.html">Mes applis</a>
         <a href="help.html">Aide</a>
-        <!-- Bouton Admin ajouté ici -->
         <a href="javascript:void(0)" onclick="verifyAdmin()">Admin</a>
     </div>
 
     <div class="search-container">
-        <input type="text" id="search-input" placeholder="Recherchez une application..." oninput="filterApps()">
+        <input type="text" id="search-input" placeholder="Recherchez une application...">
         <button onclick="searchApp()">Rechercher</button>
     </div>
 
@@ -148,117 +144,50 @@
         "minecraft": "minecraft.html",
         "wps app pro": "wpspro.html",
         "dream league": "dreamleague.html",
-        "dream league soccer": "dreamleague.html",
-        "dls": "dreamleague.html",
-        "wps app": "wpspro.html",
-        "wps pro": "wpspro.html",
-        "wps": "wpspro.html",
         "youtube premium": "ytp.html",
         "yassine tv": "ytv.html",
-        "ytv": "ytv.html",
-        "yassine": "ytv.html",
         "ppsspp gold": "pg.html",
-        "ppsspp": "pg.html",
-        "psp": "pg.html",
-        "ppsspp emulator": "pg.html",
-        "ppsspp gold emulator": "pg.html",
         "netflix": "netflix.html"
     };
 
-    function isSimilar(input, appName) {
-        let missingChars = 0;
-        let j = 0;
-
-        for (let i = 0; i < appName.length; i++) {
-            if (j < input.length && appName[i].toLowerCase() === input[j]) {
-                j++;
-            } else {
-                missingChars++;
-            }
-            if (missingChars > 1) return false;
-        }
-        return true;
-    }
-
+    // Ouvrir le menu
     function openMenu() {
         document.getElementById("side-menu").style.width = "250px";
-        document.querySelector(".menu-btn").style.display = "none";
     }
 
+    // Fermer le menu
     function closeMenu() {
         document.getElementById("side-menu").style.width = "0";
-        document.querySelector(".menu-btn").style.display = "block";
     }
 
+    // Fonction pour rechercher une application
     function searchApp() {
         const input = document.getElementById("search-input").value.toLowerCase();
         let found = false;
-        const similarApps = [];
 
         for (const app in apps) {
-            if (app.toLowerCase() === input || isSimilar(input, app)) {
+            if (app.toLowerCase() === input) {
                 window.location.href = apps[app];
                 found = true;
                 break;
-            } else if (input.length > 0 && app.toLowerCase().includes(input)) {
-                similarApps.push(app);
             }
         }
 
-        // Ouvrir la chaîne YouTube dans un nouvel onglet
-        window.open('https://youtube.com/@ibrahimezzine2010?si=WMT0_L5dvJnlOVBG', '_blank');
-
         if (!found) {
-            if (similarApps.length > 0) {
-                alert("Application non trouvée. Peut-être vouliez-vous : " + similarApps.join(", ") + " ?");
-            } else {
-                alert("Application non trouvée.");
-            }
+            alert("Application non trouvée.");
         }
     }
 
-    // Fonction de vérification du code d'accès admin
+    // Vérification admin
     function verifyAdmin() {
-        const code = prompt("E:");
+        const code = prompt("Entrez le code d'accès pour Admin :");
         if (code === "4285") {
-            window.location.href = "admin.html"; // Redirige vers la page admin
+            window.location.href = "admin.html";
         } else {
             alert("Code incorrect.");
         }
-    
-    const sheetDBUrl = "https://sheetdb.io/api/v1/v0dkeltmmocj1";
-
-    // Fonction pour envoyer les données vers SheetDB
-    async function sendData(total, visitors, revisitors) {
-        const data = { Total: total, visitors: visitors, revisitors: revisitors };
-        await fetch(sheetDBUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ data }),
-        });
     }
-
-    // Comptage des visiteurs
-    let totalVisitors = parseInt(localStorage.getItem("totalVisitors")) || 0;
-    let revisitors = parseInt(localStorage.getItem("revisitors")) || 0;
-
-    // Vérifie si c'est un revisiteur
-    if (localStorage.getItem("isReturningVisitor")) {
-        revisitors++;
-    } else {
-        localStorage.setItem("isReturningVisitor", "true");
-    }
-
-    // Incrémente le total
-    totalVisitors++;
-    localStorage.setItem("totalVisitors", totalVisitors);
-    localStorage.setItem("revisitors", revisitors);
-
-    // Envoi des données à SheetDB
-    sendData(totalVisitors, totalVisitors - revisitors, revisitors);
 </script>
-    
+
 </body>
 </html>
