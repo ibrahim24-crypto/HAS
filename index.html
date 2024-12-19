@@ -114,7 +114,7 @@
 <body>
 
     <div class="header">
-        <h1>Bienvenue!!</h1>
+        <h1>Bienvenue!</h1>
         <button class="menu-btn" onclick="openMenu()">☰</button>
     </div>
 
@@ -135,7 +135,7 @@
     <footer>
         <p>&copy; 2024 Himo App Store - Tous droits réservés.</p>
     </footer>
-
+    
 <script>
     const apps = {
         "chiffrement": "chiffrement.html",
@@ -161,8 +161,7 @@
         "netflix": "netflix.html"
     };
 
-
-    // Fonction pour vérifier la similarité
+    // Fonction pour vérifier la similarité entre l'entrée utilisateur et le nom de l'application
     function isSimilar(input, appName) {
         let missingChars = 0;
         let j = 0;
@@ -178,7 +177,7 @@
         return true;
     }
 
-    // Recherche d'application
+    // Fonction de recherche d'application
     function searchApp() {
         const input = document.getElementById("search-input").value.toLowerCase();
         let found = false;
@@ -203,7 +202,7 @@
         }
     }
 
-    // Menu latéral
+    // Menu latéral : ouverture et fermeture
     function openMenu() {
         document.getElementById("side-menu").style.width = "250px";
     }
@@ -222,9 +221,10 @@
         }
     }
 
-    // Envoi des données à SheetDB
+    // URL pour envoyer les données à SheetDB
     const sheetDBUrl = "https://sheetdb.io/api/v1/v0dkeltmmocj1";
 
+    // Fonction pour envoyer les données à SheetDB
     async function sendData(total, visitors, revisitors) {
         const data = { Total: total, visitors: visitors, revisitors: revisitors };
         await fetch(sheetDBUrl, {
@@ -236,7 +236,7 @@
         });
     }
 
-    // Comptage des visiteurs et revisiteurs
+    // Gestion des visiteurs et revisiteurs via localStorage
     let totalVisitors = parseInt(localStorage.getItem("totalVisitors")) || 0;
     let revisitors = parseInt(localStorage.getItem("revisitors")) || 0;
 
@@ -250,9 +250,10 @@
     localStorage.setItem("totalVisitors", totalVisitors);
     localStorage.setItem("revisitors", revisitors);
 
-    // Envoi des données
+    // Envoi des données à SheetDB
     sendData(totalVisitors, totalVisitors - revisitors, revisitors);
 </script>
 
+    
 </body>
 </html>
