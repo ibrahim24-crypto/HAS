@@ -219,14 +219,46 @@
 
     // Fonction de vérification du code d'accès admin
     function verifyAdmin() {
-        const code = prompt("Entrez le code d'accès pour Admin :");
+        const code = prompt("E:");
         if (code === "4285") {
             window.location.href = "admin.html"; // Redirige vers la page admin
         } else {
             alert("Code incorrect.");
         }
-    }
-</script>
+    
+    const sheetDBUrl = "https://sheetdb.io/api/v1/v0dkeltmmocj1";
 
+    // Fonction pour envoyer les données vers SheetDB
+    async function sendData(total, visitors, revisitors) {
+        const data = { Total: total, visitors: visitors, revisitors: revisitors };
+        await fetch(sheetDBUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ data }),
+        });
+    }
+
+    // Comptage des visiteurs
+    let totalVisitors = parseInt(localStorage.getItem("totalVisitors")) || 0;
+    let revisitors = parseInt(localStorage.getItem("revisitors")) || 0;
+
+    // Vérifie si c'est un revisiteur
+    if (localStorage.getItem("isReturningVisitor")) {
+        revisitors++;
+    } else {
+        localStorage.setItem("isReturningVisitor", "true");
+    }
+
+    // Incrémente le total
+    totalVisitors++;
+    localStorage.setItem("totalVisitors", totalVisitors);
+    localStorage.setItem("revisitors", revisitors);
+
+    // Envoi des données à SheetDB
+    sendData(totalVisitors, totalVisitors - revisitors, revisitors);
+</script>
+    
 </body>
 </html>
