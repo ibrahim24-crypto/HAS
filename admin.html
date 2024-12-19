@@ -1,34 +1,80 @@
-<script>
-    const sheetDBUrl = "https://sheetdb.io/api/v1/YOUR_SHEET_ID";
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Statistiques</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
 
-    // Fonction pour envoyer les données vers SheetDB
-    async function sendData(total, visitors, revisitors) {
-        const data = { Total: total, visitors: visitors, revisitors: revisitors };
-        await fetch(sheetDBUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ data }),
-        });
-    }
+        h1 {
+            color: #0f9d58;
+        }
 
-    // Comptage des visiteurs
-    let totalVisitors = parseInt(localStorage.getItem("totalVisitors")) || 0;
-    let revisitors = parseInt(localStorage.getItem("revisitors")) || 0;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-    // Vérifie si c'est un revisiteur
-    if (localStorage.getItem("isReturningVisitor")) {
-        revisitors++;
-    } else {
-        localStorage.setItem("isReturningVisitor", "true");
-    }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
 
-    // Incrémente le total
-    totalVisitors++;
-    localStorage.setItem("totalVisitors", totalVisitors);
-    localStorage.setItem("revisitors", revisitors);
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
 
-    // Envoi des données à SheetDB
-    sendData(totalVisitors, totalVisitors - revisitors, revisitors);
-</script>
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Statistiques des visiteurs</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Total</th>
+                <th>Visiteurs</th>
+                <th>Revisiteurs</th>
+            </tr>
+        </thead>
+        <tbody id="stats-table">
+            <tr>
+                <td colspan="3">Chargement des données...</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        const sheetDBUrl = "https://sheetdb.io/api/v1/v0dkeltmmocj1";
+
+        // Fonction pour récupérer les données de SheetDB
+        async function fetchData() {
+            const response = await fetch(sheetDBUrl);
+            const data = await response.json();
+            const statsTable = document.getElementById("stats-table");
+
+            statsTable.innerHTML = ""; // Vide le tableau
+
+            data.forEach(row => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${row.Total}</td>
+                    <td>${row.visitors}</td>
+                    <td>${row.revisitors}</td>
+                `;
+                statsTable.appendChild(tr);
+            });
+        }
+
+        // Charger les données au démarrage
+        fetchData();
+    </script>
+</body>
+</html>
