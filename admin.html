@@ -7,11 +7,24 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
 
         h1 {
+            text-align: center;
             color: #0f9d58;
+            margin-bottom: 20px;
         }
 
         table {
@@ -25,52 +38,94 @@
         }
 
         th, td {
-            padding: 10px;
+            padding: 12px;
             text-align: center;
         }
 
         th {
             background-color: #f4f4f4;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .totals {
+            font-weight: bold;
+            background-color: #f4f4f4;
         }
     </style>
 </head>
 <body>
-    <h1>Statistiques des visiteurs</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Total</th>
-                <th>Visiteurs</th>
-                <th>Revisiteurs</th>
-            </tr>
-        </thead>
-        <tbody id="stats-table">
-            <tr>
-                <td colspan="3">Chargement des données...</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <h1>Statistiques des visiteurs</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Total</th>
+                    <th>Visiteurs</th>
+                    <th>Revisiteurs</th>
+                </tr>
+            </thead>
+            <tbody id="stats-table">
+                <tr>
+                    <td colspan="3">Chargement des données...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <script>
         const sheetDBUrl = "https://sheetdb.io/api/v1/v0dkeltmmocj1";
 
         // Fonction pour récupérer les données de SheetDB
         async function fetchData() {
-            const response = await fetch(sheetDBUrl);
-            const data = await response.json();
-            const statsTable = document.getElementById("stats-table");
+            try {
+                const response = await fetch(sheetDBUrl);
+                const data = await response.json();
 
-            statsTable.innerHTML = ""; // Vide le tableau
+                let totalVisitors = 0;
+                let totalRevisitors = 0;
 
-            data.forEach(row => {
-                const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td>${row.Total}</td>
-                    <td>${row.visitors}</td>
-                    <td>${row.revisitors}</td>
+                const statsTable = document.getElementById("stats-table");
+                statsTable.innerHTML = ""; // Vider le tableau avant ajout
+
+                data.forEach(row => {
+                    const visitors = parseInt(row.visitors || 0);
+                    const revisitors = parseInt(row.revisitors || 0);
+                    const total = visitors + revisitors;
+
+                    totalVisitors += visitors;
+                    totalRevisitors += revisitors;
+
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${total}</td>
+                        <td>${visitors}</td>
+                        <td>${revisitors}</td>
+                    `;
+                    statsTable.appendChild(tr);
+                });
+
+                // Ajouter une ligne pour les totaux
+                const totalsRow = document.createElement("tr");
+                totalsRow.classList.add("totals");
+                totalsRow.innerHTML = `
+                    <td>${totalVisitors + totalRevisitors}</td>
+                    <td>${totalVisitors}</td>
+                    <td>${totalRevisitors}</td>
                 `;
-                statsTable.appendChild(tr);
-            });
+                statsTable.appendChild(totalsRow);
+            } catch (error) {
+                console.error("Erreur lors de la récupération des données :", error);
+                const statsTable = document.getElementById("stats-table");
+                statsTable.innerHTML = `
+                    <tr>
+                        <td colspan="3">Erreur lors du chargement des données.</td>
+                    </tr>
+                `;
+            }
         }
 
         // Charger les données au démarrage
